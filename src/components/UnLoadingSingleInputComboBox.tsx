@@ -1,5 +1,5 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
+import * as React from "react";
+import TextField from "@mui/material/TextField";
 
 interface Props {
   formPartLabel: string;
@@ -15,8 +15,8 @@ const UnLoadingSingleInputComboBox: React.FC<Props> = (props) => {
     error: props.formError !== "",
     helperText: props.formError,
     value: props.value,
-    default: props.value
-  }
+    default: props.value,
+  };
 
   return (
     <TextField
@@ -25,6 +25,6 @@ const UnLoadingSingleInputComboBox: React.FC<Props> = (props) => {
       onChange={props.handleChange}
     />
   );
-}
+};
 
 export default UnLoadingSingleInputComboBox;

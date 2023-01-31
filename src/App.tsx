@@ -1,7 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SearchForm from './components/searchForm';
-import SearchResults from './components/searchResults';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SearchForm from "./components/searchForm";
+import SearchResults from "./components/searchResults";
 
 const App: React.FC = () => {
   return (

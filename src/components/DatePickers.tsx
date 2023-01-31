@@ -1,11 +1,11 @@
-import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import * as React from "react";
+import dayjs, { Dayjs } from "dayjs";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 interface Props {
   formPartLabel: string;
@@ -13,15 +13,13 @@ interface Props {
   formError: string;
 }
 
-
 const DatePickerMobile: React.FC<Props> = (props) => {
   const [value, setValue] = React.useState<Dayjs | null>(null);
   const TextFieldConfig: any = {
     label: props.formPartLabel,
     error: props.formError !== "",
-    helperText: props.formError
-  }
-
+    helperText: props.formError,
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -33,24 +31,22 @@ const DatePickerMobile: React.FC<Props> = (props) => {
             setValue(newValue);
             props.handleSelect(newValue);
           }}
-          renderInput={(params) => <TextField
-            {...params}
-            {...TextFieldConfig}
-
-          />}
+          renderInput={(params) => (
+            <TextField {...params} {...TextFieldConfig} />
+          )}
         />
       </Stack>
     </LocalizationProvider>
   );
-}
+};
 
 const DatePickerDescktop: React.FC<Props> = (props) => {
   const [value, setValue] = React.useState<Dayjs | null>(null);
   const TextFieldConfig: any = {
     label: props.formPartLabel,
     error: props.formError !== "",
-    helperText: props.formError
-  }
+    helperText: props.formError,
+  };
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DesktopDatePicker
@@ -61,18 +57,10 @@ const DatePickerDescktop: React.FC<Props> = (props) => {
           setValue(newValue);
           props.handleSelect(newValue);
         }}
-
-        renderInput={(params) => <TextField
-          {...params}
-          {...TextFieldConfig}
-        />}
+        renderInput={(params) => <TextField {...params} {...TextFieldConfig} />}
       />
     </LocalizationProvider>
+  );
+};
 
-  )
-}
-
-export {
-  DatePickerDescktop,
-  DatePickerMobile
-}
+export { DatePickerDescktop, DatePickerMobile };
