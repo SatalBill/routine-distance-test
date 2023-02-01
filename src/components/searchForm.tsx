@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import AirplanemodeActive from "@mui/icons-material/AirplanemodeActive";
+import { useNavigate } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import dayjs from "dayjs";
 import SingleInputComboBox from "./SingleInputComboBox";
 import MultipleInputComboBox from "./MultipleInputComboBox";
 import { getCities } from "../api/cities";
 import UnLoadingSingleInputComboBox from "./UnLoadingSingleInputComboBox";
 import { DatePickerDescktop } from "./DatePickers";
-import Button from "@material-ui/core/Button";
 import { City, formErrors, DistanceResponse } from "../utils/types";
-import dayjs from "dayjs";
 import { getDistance } from "../api/distance";
-import { Link } from "react-router-dom";
 
 interface Props {}
 
 const SearchForm: React.FC<Props> = (props) => {
+  const navigate = useNavigate();
   const [origin, setOrigin] = useState<City | null>(null);
   const [destination, setDestination] = useState<City | null>(null);
   const [intermediateCities, setIntermediateCities] = useState<City[] | null>(
@@ -109,11 +110,16 @@ const SearchForm: React.FC<Props> = (props) => {
     setIsFormValid(isFormValid);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("3333")
+  const handleSubmit = () => {
     if (isFormValid) {
       //handle form submission
+      navigate(
+        `/search_results?origin=${origin?.name}&destination=${
+          destination?.name
+        }&date=${date}&passengers=${passengers}&intermidiate_cities=${intermediateCities
+          ?.map((city) => city.name)
+          .join(",")}`
+      );
     }
   };
   React.useEffect(() => {
@@ -187,10 +193,7 @@ const SearchForm: React.FC<Props> = (props) => {
 
   return (
     <div className=" flex w-full p-5 min-h-screen justify-center items-center bg-gray-100">
-      <form
-        className="flex w-full md:w-[500px] min-h-[600px] space-y-4 p-5 bg-white rounded-md flex-col"
-        onSubmit={handleSubmit}
-      >
+      <div className="flex w-full md:w-[500px] min-h-[600px] space-y-4 p-5 bg-white rounded-md flex-col">
         <div className="flex w-full space-4 justify-center">
           <AirplanemodeActive
             className="rotate-90 text-purple-700"
@@ -232,45 +235,23 @@ const SearchForm: React.FC<Props> = (props) => {
           handleSelect={handleDateSelect}
           formPartLabel={"Date of trip"}
         />
-        {isFormValid ? (
-          <Link
-            to={`/search_results?origin=${origin?.name}&destination=${
-              destination?.name
-            }&date=${date}&passengers=${passengers}&intermidiate_cities=${intermediateCities
-              ?.map((city) => city.name)
-              .join(",")}`}
-          >
-            <Button
-              style={{
-                color: "white",
-                background: "rgb(126 34 206)",
-                padding: 10,
-              }}
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-            >
-              Submit
-            </Button>
-          </Link>
-        ) : (
-          <Button
-            disabled
-            style={{
-              color: "white",
-              background: "rgb(126 34 206)",
-              padding: 10,
-            }}
-            color="primary"
-            variant="contained"
-            fullWidth
-            type="submit"
-          >
-            Submit
-          </Button>
-        )}
-      </form>
+
+        <Button
+          style={{
+            color: "white",
+            background: isFormValid ? "rgb(126 34 206)" : "grey",
+            padding: 10,
+          }}
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+          disabled={!isFormValid}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </div>
     </div>
   );
 };
