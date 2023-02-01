@@ -255,6 +255,7 @@ const SearchResults: React.FC<Props> = (props) => {
           <div className="flex flex-row w-full border-t border-black">
             {smallTableComponents.map((component, index) => (
               <div
+                key={index}
                 className={`flex flex-col w-1/6  ${
                   smallTableComponents.length - 1 !== index && "border-r"
                 } border-black`}

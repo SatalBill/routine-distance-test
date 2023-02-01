@@ -111,24 +111,24 @@ const SearchForm: React.FC<Props> = (props) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    console.log("3333")
     if (isFormValid) {
       //handle form submission
     }
   };
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    var destinationParam = params.get("destination");
-    var originParam = params.get("origin");
-    var passengersParam = params.get("passengers");
-    var dateParam = params.get("date");
-    var intermidiateCitiesParamSting = params.get("intermidiate_cities");
-    var intermidiateCitiesParam = String(intermidiateCitiesParamSting)?.split(
+    const destinationParam = params.get("destination");
+    const originParam = params.get("origin");
+    const passengersParam = params.get("passengers");
+    const dateParam = params.get("date");
+    const intermidiateCitiesParamSting = params.get("intermidiate_cities");
+    const intermidiateCitiesParam = String(intermidiateCitiesParamSting)?.split(
       ","
     );
 
     const usingParameters = async () => {
-      var citiesInvolved: string[] = [];
+      const citiesInvolved: string[] = [];
 
       //add the originCity
       citiesInvolved.push(String(originParam));
@@ -146,8 +146,8 @@ const SearchForm: React.FC<Props> = (props) => {
         (city) =>
           city.name !== originCity.name && city.name !== destinationCity.name
       );
-      var passengers = parseInt(String(passengersParam));
-      var date = dateParam;
+      const passengers = parseInt(String(passengersParam));
+      const date = dateParam;
 
       if (originParam === "") {
         alert(`Specify the city of origin`);
